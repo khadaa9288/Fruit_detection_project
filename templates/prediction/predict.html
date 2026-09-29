@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <title>FruitDetect AI | Predict Fruit</title>
+
+
+    <!-- Bootstrap 5 -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- Bootstrap Icons -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet">
+
+
+    <style>
+
+        /* ================= GLOBAL ================= */
+
+        body {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f8fff8,
+                    #eef8ff
+                );
+
+            min-height: 100vh;
+
+            color: #17221c;
+
+            font-family: Arial, sans-serif;
+
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+
+            background: #111827;
+
+        }
+
+        .navbar-brand {
+
+            font-weight: 800;
+
+            letter-spacing: 0.5px;
+
+        }
+
+        .navbar-brand i {
+
+            color: #20c997;
+
+        }
+
+        .nav-link {
+
+            font-weight: 600;
+
+        }
+
+        .nav-link:hover {
+
+            color: #20c997 !important;
+
+        }
+
+        /* ================= HERO ================= */
+
+        .hero-section {
+
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(255,255,255,0.15),
+                    transparent 25%
+                ),
+                linear-gradient(
+                    135deg,
+                    #087f5b,
+                    #198754,
+                    #20c997
+                );
+
+            color: white;
+
+            border-radius:
+                0 0 40px 40px;
+
+            padding: 60px 20px;
+
+            margin-bottom: 45px;
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+        .hero-section::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+            height: 300px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            right: -100px;
+            top: -130px;
+
+        }
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+        /* ================= MAIN CARD ================= */
+
+        .prediction-card {
+
+            border: none;
+
+            border-radius: 28px;
+
+            box-shadow:
+                0 15px 50px
+                rgba(0,0,0,0.08);
+
+            overflow: hidden;
+
+            background: white;
+
+        }
+
+        .card-header-custom {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #198754,
+                    #20c997
+                );
+
+            color: white;
+
+            padding: 25px 30px;
+
+        }
+
+        /* ================= FORM ================= */
+
+        .form-label {
+
+            font-weight: 700;
+
+            color: #344054;
+
+        }
+
+        .form-control {
+
+            border-radius: 12px;
+
+            padding: 12px 14px;
+
+            border:
+                1px solid #d9dee7;
+
+            transition: 0.25s;
+
+        }
+
+        .form-control:focus {
+
+            border-color: #198754;
+
+            box-shadow:
+                0 0 0 0.2rem
+                rgba(25,135,84,0.15);
+
+        }
+
+        .parameter-card {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #f8fafc
+                );
+
+            border-radius: 18px;
+
+            padding: 18px;
+
+            height: 100%;
+
+            border:
+                1px solid #edf0f4;
+
+            transition: 0.3s;
+
+        }
+
+        .parameter-card:hover {
+
+            transform:
+                translateY(-3px);
+
+            border-color:
+                rgba(25,135,84,0.25);
+
+            box-shadow:
+                0 10px 25px
+                rgba(0,0,0,0.06);
+
+        }
+
+        .parameter-icon {
+
+            width: 45px;
+
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e8f7ef,
+                    #d1fae5
+                );
+
+            color: #198754;
+
+            border-radius: 13px;
+
+            font-size: 20px;
+
+            margin-bottom: 12px;
+
+        }
+
+        /* ================= PREDICT BUTTON ================= */
+
+        .predict-btn {
+
+            border: none;
+
+            border-radius: 50px;
+
+            padding:
+                14px 40px;
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #198754,
+                    #20c997
+                );
+
+            color: white;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 8px 20px
+                rgba(25,135,84,0.20);
+
+        }
+
+        .predict-btn:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 14px 28px
+                rgba(25,135,84,0.30);
+
+            color: white;
+
+        }
+
+        /* ================= RESULT ================= */
+
+        .result-card {
+
+            border: none;
+
+            border-radius: 28px;
+
+            background: white;
+
+            box-shadow:
+                0 15px 45px
+                rgba(0,0,0,0.08);
+
+            overflow: hidden;
+
+        }
+
+        .result-header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #198754,
+                    #20c997
+                );
+
+            color: white;
+
+            padding: 20px;
+
+        }
+
+        .fruit-result {
+
+            font-size: 44px;
+
+            font-weight: 800;
+
+            color: #198754;
+
+        }
+
+        .confidence-value {
+
+            font-size: 32px;
+
+            font-weight: 800;
+
+        }
+
+        .uploaded-image {
+
+            max-height: 280px;
+
+            width: 100%;
+
+            object-fit: contain;
+
+            border-radius: 18px;
+
+            background: #f8f9fa;
+
+            padding: 10px;
+
+            border:
+                1px solid #e9ecef;
+
+        }
+
+        .info-step {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            margin-bottom: 18px;
+
+        }
+
+        .step-number {
+
+            min-width: 34px;
+
+            height: 34px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #198754;
+
+            color: white;
+
+            border-radius: 50%;
+
+            font-weight: 700;
+
+            margin-right: 12px;
+
+        }
+
+        /* ================= FOOTER ================= */
+
+        .main-footer {
+
+            background: #111827;
+
+            color: #9ca3af;
+
+            padding:
+                55px 0 25px;
+
+            margin-top: 55px;
+
+        }
+
+        .footer-brand {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 1.5rem;
+
+            font-weight: 800;
+
+            display: inline-flex;
+
+            align-items: center;
+
+        }
+
+        .footer-brand:hover {
+
+            color: #20c997;
+
+        }
+
+        .footer-brand-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #198754;
+
+            color: white;
+
+            border-radius: 12px;
+
+            margin-right: 10px;
+
+        }
+
+        .footer-text {
+
+            max-width: 500px;
+
+            line-height: 1.8;
+
+        }
+
+        .footer-title {
+
+            color: white;
+
+            font-weight: 700;
+
+            margin-bottom: 18px;
+
+        }
+
+        .footer-link {
+
+            display: block;
+
+            color: #9ca3af;
+
+            text-decoration: none;
+
+            margin-bottom: 11px;
+
+            transition: 0.3s;
+
+        }
+
+        .footer-link:hover {
+
+            color: #20c997;
+
+            padding-left: 5px;
+
+        }
+
+        .tech-badge {
+
+            display: inline-block;
+
+            background: #1f2937;
+
+            color: #d1d5db;
+
+            border:
+                1px solid #374151;
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            margin:
+                0 5px 8px 0;
+
+            font-size: 0.82rem;
+
+        }
+
+        .footer-divider {
+
+            border-color: #374151;
+
+            margin:
+                35px 0 20px;
+
+        }
+
+        .copyright {
+
+            color: #9ca3af;
+
+            font-size: 0.9rem;
+
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 768px) {
+
+            .hero-section {
+
+                padding: 45px 15px;
+
+            }
+
+            .main-footer {
+
+                text-align: center;
+
+            }
+
+            .footer-text {
+
+                margin-left: auto;
+
+                margin-right: auto;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ===================================================== -->
+<!-- NAVBAR -->
+<!-- ===================================================== -->
+
+<nav
+    class="navbar navbar-expand-lg navbar-dark shadow-sm">
+
+    <div class="container">
+
+        <a
+            class="navbar-brand"
+            href="/">
+
+            <i class="bi bi-stars me-2"></i>
+
+            FruitDetect AI
+
+        </a>
+
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <div
+            class="collapse navbar-collapse"
+            id="mainNavbar">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="/">
+
+                        <i class="bi bi-house me-1"></i>
+                        Home
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link active"
+                        href="{% url 'predict' %}">
+
+                        <i class="bi bi-cpu me-1"></i>
+                        Predict
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ===================================================== -->
+<!-- HERO -->
+<!-- ===================================================== -->
+
+<section class="hero-section">
+
+    <div class="container hero-content">
+
+        <div class="text-center">
+
+            <div class="mb-3">
+
+                <i class="bi bi-stars fs-1"></i>
+
+            </div>
+
+
+            <h1 class="display-5 fw-bold">
+
+                Fruit Detection System
+
+            </h1>
+
+
+            <p class="lead mb-0">
+
+                Upload a fruit image and enter its characteristics
+                to identify the fruit using Machine Learning.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- MAIN CONTENT -->
+<!-- ===================================================== -->
+
+<div class="container pb-5">
+
+    <div class="row g-4">
+
+
+        <!-- ================================================= -->
+        <!-- PREDICTION FORM -->
+        <!-- ================================================= -->
+
+        <div class="col-lg-8">
+
+            <div class="card prediction-card">
+
+
+                <!-- HEADER -->
+
+                <div class="card-header-custom">
+
+                    <h3 class="mb-1 fw-bold">
+
+                        <i class="bi bi-clipboard-data me-2"></i>
+
+                        Fruit Parameters
+
+                    </h3>
+
+                    <p class="mb-0 opacity-75">
+
+                        Enter all required parameters below.
+
+                    </p>
+
+                </div>
+
+
+                <!-- BODY -->
+
+                <div class="card-body p-4 p-lg-5">
+
+
+                    <form
+                        method="POST"
+                        enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+
+                        <!-- IMAGE -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+
+                                <i
+                                    class="bi bi-image me-1 text-success">
+                                </i>
+
+                                Fruit Image
+
+                            </label>
+
+
+                            {{ form.fruit_image }}
+
+
+                            {% if form.fruit_image.errors %}
+
+                                <div
+                                    class="text-danger small mt-1">
+
+                                    {{ form.fruit_image.errors }}
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- PARAMETERS -->
+
+                        <div class="row g-3">
+
+
+                            <!-- WEIGHT -->
+
+                            <div class="col-md-6">
+
+                                <div class="parameter-card">
+
+                                    <div class="parameter-icon">
+
+                                        <i
+                                            class="bi bi-speedometer2">
+                                        </i>
+
+                                    </div>
+
+                                    <label class="form-label">
+                                        Weight
+                                    </label>
+
+                                    {{ form.weight }}
+
+                                    {% if form.weight.errors %}
+
+                                        <div
+                                            class="text-danger small mt-1">
+
+                                            {{ form.weight.errors }}
+
+                                        </div>
+
+                                    {% endif %}
+
+                                    <small class="text-muted">
+
+                                        Enter weight in grams
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SIZE -->
+
+                            <div class="col-md-6">
+
+                                <div class="parameter-card">
+
+                                    <div class="parameter-icon">
+
+                                        <i
+                                            class="bi bi-arrows-angle-expand">
+                                        </i>
+
+                                    </div>
+
+                                    <label class="form-label">
+                                        Size
+                                    </label>
+
+                                    {{ form.size }}
+
+                                    {% if form.size.errors %}
+
+                                        <div
+                                            class="text-danger small mt-1">
+
+                                            {{ form.size.errors }}
+
+                                        </div>
+
+                                    {% endif %}
+
+                                    <small class="text-muted">
+
+                                        Enter fruit size
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SWEETNESS -->
+
+                            <div class="col-md-6">
+
+                                <div class="parameter-card">
+
+                                    <div class="parameter-icon">
+
+                                        <i class="bi bi-cup-hot"></i>
+
+                                    </div>
+
+                                    <label class="form-label">
+                                        Sweetness
+                                    </label>
+
+                                    {{ form.sweetness }}
+
+                                    {% if form.sweetness.errors %}
+
+                                        <div
+                                            class="text-danger small mt-1">
+
+                                            {{ form.sweetness.errors }}
+
+                                        </div>
+
+                                    {% endif %}
+
+                                    <small class="text-muted">
+
+                                        Sweetness score: 0–100
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- ACIDITY -->
+
+                            <div class="col-md-6">
+
+                                <div class="parameter-card">
+
+                                    <div class="parameter-icon">
+
+                                        <i class="bi bi-droplet"></i>
+
+                                    </div>
+
+                                    <label class="form-label">
+                                        Acidity
+                                    </label>
+
+                                    {{ form.acidity }}
+
+                                    {% if form.acidity.errors %}
+
+                                        <div
+                                            class="text-danger small mt-1">
+
+                                            {{ form.acidity.errors }}
+
+                                        </div>
+
+                                    {% endif %}
+
+                                    <small class="text-muted">
+
+                                        Acidity score: 0–100
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- FIRMNESS -->
+
+                            <div class="col-md-6">
+
+                                <div class="parameter-card">
+
+                                    <div class="parameter-icon">
+
+                                        <i
+                                            class="bi bi-hand-index">
+                                        </i>
+
+                                    </div>
+
+                                    <label class="form-label">
+                                        Firmness
+                                    </label>
+
+                                    {{ form.firmness }}
+
+                                    {% if form.firmness.errors %}
+
+                                        <div
+                                            class="text-danger small mt-1">
+
+                                            {{ form.firmness.errors }}
+
+                                        </div>
+
+                                    {% endif %}
+
+                                    <small class="text-muted">
+
+                                        Firmness score: 0–100
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- RIPENESS -->
+
+                            <div class="col-md-6">
+
+                                <div class="parameter-card">
+
+                                    <div class="parameter-icon">
+
+                                        <i class="bi bi-flower2"></i>
+
+                                    </div>
+
+                                    <label class="form-label">
+                                        Ripeness
+                                    </label>
+
+                                    {{ form.ripeness }}
+
+                                    {% if form.ripeness.errors %}
+
+                                        <div
+                                            class="text-danger small mt-1">
+
+                                            {{ form.ripeness.errors }}
+
+                                        </div>
+
+                                    {% endif %}
+
+                                    <small class="text-muted">
+
+                                        Ripeness score: 0–100
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- COLOR -->
+
+                            <div class="col-md-6">
+
+                                <div class="parameter-card">
+
+                                    <div class="parameter-icon">
+
+                                        <i class="bi bi-palette"></i>
+
+                                    </div>
+
+                                    <label class="form-label">
+                                        Color Score
+                                    </label>
+
+                                    {{ form.color_score }}
+
+                                    {% if form.color_score.errors %}
+
+                                        <div
+                                            class="text-danger small mt-1">
+
+                                            {{ form.color_score.errors }}
+
+                                        </div>
+
+                                    {% endif %}
+
+                                    <small class="text-muted">
+
+                                        Color score: 0–100
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- DIAMETER -->
+
+                            <div class="col-md-6">
+
+                                <div class="parameter-card">
+
+                                    <div class="parameter-icon">
+
+                                        <i class="bi bi-circle"></i>
+
+                                    </div>
+
+                                    <label class="form-label">
+                                        Diameter
+                                    </label>
+
+                                    {{ form.diameter }}
+
+                                    {% if form.diameter.errors %}
+
+                                        <div
+                                            class="text-danger small mt-1">
+
+                                            {{ form.diameter.errors }}
+
+                                        </div>
+
+                                    {% endif %}
+
+                                    <small class="text-muted">
+
+                                        Enter diameter
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- HEIGHT -->
+
+                            <div class="col-md-6">
+
+                                <div class="parameter-card">
+
+                                    <div class="parameter-icon">
+
+                                        <i
+                                            class="bi bi-arrows-vertical">
+                                        </i>
+
+                                    </div>
+
+                                    <label class="form-label">
+                                        Height
+                                    </label>
+
+                                    {{ form.height }}
+
+                                    {% if form.height.errors %}
+
+                                        <div
+                                            class="text-danger small mt-1">
+
+                                            {{ form.height.errors }}
+
+                                        </div>
+
+                                    {% endif %}
+
+                                    <small class="text-muted">
+
+                                        Enter fruit height
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- WIDTH -->
+
+                            <div class="col-md-6">
+
+                                <div class="parameter-card">
+
+                                    <div class="parameter-icon">
+
+                                        <i class="bi bi-arrows"></i>
+
+                                    </div>
+
+                                    <label class="form-label">
+                                        Width
+                                    </label>
+
+                                    {{ form.width }}
+
+                                    {% if form.width.errors %}
+
+                                        <div
+                                            class="text-danger small mt-1">
+
+                                            {{ form.width.errors }}
+
+                                        </div>
+
+                                    {% endif %}
+
+                                    <small class="text-muted">
+
+                                        Enter fruit width
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- SUBMIT -->
+
+                        <div class="text-center mt-5">
+
+                            <button
+                                type="submit"
+                                class="predict-btn">
+
+                                <i
+                                    class="bi bi-cpu-fill me-2">
+                                </i>
+
+                                Predict Fruit
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- RESULT / INFORMATION -->
+        <!-- ================================================= -->
+
+        <div class="col-lg-4">
+
+
+            {% if prediction %}
+
+
+                <!-- RESULT -->
+
+                <div class="card result-card">
+
+
+                    <div class="result-header text-center">
+
+                        <i class="bi bi-check-circle-fill fs-2"></i>
+
+                        <h4 class="fw-bold mt-2 mb-0">
+
+                            Prediction Complete
+
+                        </h4>
+
+                    </div>
+
+
+                    <div class="card-body p-4 text-center">
+
+
+                        {% if image_url %}
+
+                            <img
+                                src="{{ image_url }}"
+                                alt="Uploaded Fruit"
+                                class="uploaded-image mb-4">
+
+                        {% endif %}
+
+
+                        <p class="text-muted mb-1">
+
+                            Detected Fruit
+
+                        </p>
+
+
+                        <div class="fruit-result mb-4">
+
+                            {{ prediction }}
+
+                        </div>
+
+
+                        {% if confidence is not None %}
+
+                            <p class="text-muted mb-1">
+
+                                Prediction Confidence
+
+                            </p>
+
+
+                            <div
+                                class="confidence-value text-success">
+
+                                {{ confidence }}%
+
+                            </div>
+
+
+                            <div
+                                class="progress mt-3 mb-4"
+                                style="height: 12px;">
+
+                                <div
+                                    class="progress-bar bg-success"
+                                    role="progressbar"
+                                    style="width: {{ confidence }}%;"
+                                    aria-valuenow="{{ confidence }}"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100">
+
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <div
+                            class="alert alert-success text-start">
+
+                            <i
+                                class="bi bi-lightbulb me-2">
+                            </i>
+
+                            The Random Forest machine learning
+                            model analyzed the 10 fruit parameters
+                            and generated this prediction.
+
+                        </div>
+
+
+                        <a
+                            href="{% url 'predict' %}"
+                            class="btn btn-success rounded-pill px-4">
+
+                            <i
+                                class="bi bi-arrow-repeat me-2">
+                            </i>
+
+                            New Prediction
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+
+            {% else %}
+
+
+                <!-- INFORMATION CARD -->
+
+                <div class="card result-card">
+
+                    <div class="card-body p-4">
+
+
+                        <div class="text-center mb-4">
+
+                            <div
+                                class="parameter-icon mx-auto mb-3"
+                                style="
+                                    width:75px;
+                                    height:75px;
+                                    font-size:32px;
+                                ">
+
+                                <i class="bi bi-robot"></i>
+
+                            </div>
+
+
+                            <h4 class="fw-bold">
+
+                                AI Fruit Detection
+
+                            </h4>
+
+
+                            <p class="text-muted">
+
+                                Your prediction result
+                                will appear here.
+
+                            </p>
+
+                        </div>
+
+
+                        <hr>
+
+
+                        <h6 class="fw-bold mb-4">
+
+                            <i
+                                class="bi bi-info-circle text-success me-2">
+                            </i>
+
+                            How It Works
+
+                        </h6>
+
+
+                        <!-- STEP 1 -->
+
+                        <div class="info-step">
+
+                            <span class="step-number">
+                                1
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Upload Image
+                                </strong>
+
+                                <div class="text-muted small">
+
+                                    Select an image of your fruit.
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- STEP 2 -->
+
+                        <div class="info-step">
+
+                            <span class="step-number">
+                                2
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Enter Parameters
+                                </strong>
+
+                                <div class="text-muted small">
+
+                                    Enter all 10 fruit characteristics.
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- STEP 3 -->
+
+                        <div class="info-step">
+
+                            <span class="step-number">
+                                3
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Predict Fruit
+                                </strong>
+
+                                <div class="text-muted small">
+
+                                    Click the Predict Fruit button.
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- STEP 4 -->
+
+                        <div class="info-step mb-0">
+
+                            <span class="step-number">
+                                4
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    View Result
+                                </strong>
+
+                                <div class="text-muted small">
+
+                                    The Random Forest model
+                                    identifies the fruit.
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- FOOTER -->
+<!-- ===================================================== -->
+
+<footer class="main-footer">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <!-- BRAND -->
+
+            <div class="col-lg-5">
+
+                <a
+                    href="/"
+                    class="footer-brand">
+
+                    <span class="footer-brand-icon">
+
+                        <i class="bi bi-stars"></i>
+
+                    </span>
+
+                    FruitDetect AI
+
+                </a>
+
+
+                <p class="footer-text mt-3 mb-0">
+
+                    A machine learning powered fruit detection
+                    system built using Python, Django, SQLite
+                    and Random Forest.
+
+                </p>
+
+            </div>
+
+
+            <!-- LINKS -->
+
+            <div class="col-sm-6 col-lg-3">
+
+                <h5 class="footer-title">
+
+                    Quick Links
+
+                </h5>
+
+
+                <a
+                    href="/"
+                    class="footer-link">
+
+                    <i class="bi bi-house me-2"></i>
+
+                    Home
+
+                </a>
+
+
+                <a
+                    href="{% url 'predict' %}"
+                    class="footer-link">
+
+                    <i class="bi bi-cpu me-2"></i>
+
+                    Predict Fruit
+
+                </a>
+
+
+                <a
+                    href="/admin/"
+                    class="footer-link">
+
+                    <i class="bi bi-shield-lock me-2"></i>
+
+                    Admin
+
+                </a>
+
+            </div>
+
+
+            <!-- TECHNOLOGIES -->
+
+            <div class="col-sm-6 col-lg-4">
+
+                <h5 class="footer-title">
+
+                    Technologies
+
+                </h5>
+
+
+                <span class="tech-badge">
+                    Python
+                </span>
+
+
+                <span class="tech-badge">
+                    Django
+                </span>
+
+
+                <span class="tech-badge">
+                    Machine Learning
+                </span>
+
+
+                <span class="tech-badge">
+                    Random Forest
+                </span>
+
+
+                <span class="tech-badge">
+                    SQLite
+                </span>
+
+
+                <span class="tech-badge">
+                    Bootstrap
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <hr class="footer-divider">
+
+
+        <div class="row align-items-center">
+
+            <div class="col-md-6">
+
+                <p class="copyright mb-md-0">
+
+                    © 2026 FruitDetect AI.
+                    All Rights Reserved.
+
+                </p>
+
+            </div>
+
+
+            <div class="col-md-6 text-md-end mt-2 mt-md-0">
+
+                <span class="copyright">
+
+                    <i
+                        class="bi bi-heart-fill text-danger me-1">
+                    </i>
+
+                    Built for Machine Learning Project
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+
+</html>

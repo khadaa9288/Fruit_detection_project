@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FruitDetect AI | Fruit Detection System</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet">
+
+    <style>
+
+        /* ================= GLOBAL ================= */
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8faf9;
+            color: #17221c;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+        }
+
+        .navbar-brand {
+            font-size: 1.45rem;
+            font-weight: 800;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            margin-right: 8px;
+            background: linear-gradient(135deg, #198754, #20c997);
+            color: white;
+        }
+
+        .nav-link {
+            font-weight: 600;
+        }
+
+        .nav-link:hover {
+            color: #198754 !important;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(255,255,255,0.18),
+                    transparent 25%
+                ),
+                linear-gradient(
+                    135deg,
+                    #087f5b,
+                    #198754 45%,
+                    #0d6efd
+                );
+
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            top: -150px;
+            right: -80px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            bottom: -120px;
+            left: -80px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.08;
+        }
+
+        .hero-title span {
+            color: #d1fae5;
+        }
+
+        .hero-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            opacity: 0.93;
+            max-width: 650px;
+        }
+
+        .hero-card {
+            background: rgba(255,255,255,0.13);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 30px;
+            padding: 35px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.18);
+        }
+
+        .fruit-circle {
+            width: 145px;
+            height: 145px;
+            margin: auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.17);
+            font-size: 5rem;
+            box-shadow:
+                0 0 0 15px rgba(255,255,255,0.05),
+                0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .hero-stat {
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .hero-stat:last-child {
+            border-right: none;
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .btn-main {
+            background: white;
+            color: #198754;
+            border: none;
+            font-weight: 700;
+            padding: 13px 25px;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-3px);
+            background: #f8f9fa;
+            color: #146c43;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .btn-outline-main {
+            border: 1px solid rgba(255,255,255,0.7);
+            color: white;
+            font-weight: 700;
+            padding: 13px 25px;
+            border-radius: 50px;
+        }
+
+        .btn-outline-main:hover {
+            background: white;
+            color: #198754;
+        }
+
+        /* ================= SECTION ================= */
+
+        .section-title {
+            font-weight: 800;
+            font-size: 2.3rem;
+        }
+
+        .section-label {
+            color: #198754;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            font-size: 0.85rem;
+        }
+
+        /* ================= FEATURE CARDS ================= */
+
+        .feature-card {
+            border: none;
+            border-radius: 22px;
+            height: 100%;
+            background: white;
+            transition: 0.35s;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-9px);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+        }
+
+        .feature-icon {
+            width: 68px;
+            height: 68px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            background: linear-gradient(
+                135deg,
+                #e8f5ee,
+                #d1fae5
+            );
+            color: #198754;
+        }
+
+        /* ================= FRUIT CARDS ================= */
+
+        .fruit-card {
+            border: none;
+            border-radius: 22px;
+            overflow: hidden;
+            background: white;
+            transition: 0.3s;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+
+        .fruit-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+        }
+
+        .fruit-icon {
+            font-size: 4.5rem;
+            padding: 28px 10px 15px;
+            background: linear-gradient(
+                135deg,
+                #f8fff8,
+                #eef8ff
+            );
+        }
+
+        /* ================= STATS ================= */
+
+        .stats-section {
+            background: #ffffff;
+        }
+
+        .stat-card {
+            border: none;
+            border-radius: 20px;
+            padding: 25px;
+            background: #f8faf9;
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #198754;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta-section {
+            background:
+                linear-gradient(
+                    135deg,
+                    #198754,
+                    #087f5b,
+                    #0d6efd
+                );
+
+            color: white;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cta-section::after {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            right: -80px;
+            top: -100px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .main-footer {
+            background: #111827;
+            color: #9ca3af;
+            padding: 55px 0 25px;
+        }
+
+        .footer-brand {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .footer-brand:hover {
+            color: #20c997;
+        }
+
+        .footer-brand-icon {
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #198754;
+            color: white;
+            border-radius: 12px;
+            margin-right: 10px;
+        }
+
+        .footer-text {
+            max-width: 500px;
+            line-height: 1.8;
+        }
+
+        .footer-title {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .footer-link {
+            display: block;
+            color: #9ca3af;
+            text-decoration: none;
+            margin-bottom: 11px;
+            transition: 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #20c997;
+            padding-left: 5px;
+        }
+
+        .tech-badge {
+            display: inline-block;
+            background: #1f2937;
+            color: #d1d5db;
+            border: 1px solid #374151;
+            padding: 7px 12px;
+            border-radius: 20px;
+            margin: 0 5px 8px 0;
+            font-size: 0.82rem;
+        }
+
+        .footer-divider {
+            border-color: #374151;
+            margin: 35px 0 20px;
+        }
+
+        .copyright {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 992px) {
+
+            .hero {
+                text-align: center;
+                padding: 80px 0;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-text {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+        }
+
+        @media (max-width: 576px) {
+
+            .hero-title {
+                font-size: 2.4rem;
+            }
+
+            .hero-card {
+                padding: 25px;
+            }
+
+            .fruit-circle {
+                width: 115px;
+                height: 115px;
+                font-size: 4rem;
+            }
+
+            .main-footer {
+                text-align: center;
+            }
+
+            .footer-text {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ===================================================== -->
+<!-- NAVBAR -->
+<!-- ===================================================== -->
+
+<nav class="navbar navbar-expand-lg shadow-sm sticky-top">
+
+    <div class="container">
+
+        <a class="navbar-brand text-success" href="/">
+
+            <span class="brand-icon">
+                <i class="bi bi-stars"></i>
+            </span>
+
+            FruitDetect AI
+
+        </a>
+
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <div
+            class="collapse navbar-collapse"
+            id="mainNavbar">
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#features">
+                        Features
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#fruits">
+                        Fruits
+                    </a>
+                </li>
+
+                <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+
+                    <a
+                        href="/predict/"
+                        class="btn btn-success px-4 rounded-pill">
+
+                        <i class="bi bi-camera me-1"></i>
+                        Detect Fruit
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ===================================================== -->
+<!-- HERO -->
+<!-- ===================================================== -->
+
+<section class="hero">
+
+    <div class="container hero-content">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-7">
+
+                <span
+                    class="badge bg-light text-success px-3 py-2 rounded-pill mb-4">
+
+                    <i class="bi bi-cpu me-1"></i>
+                    Machine Learning Powered
+
+                </span>
+
+
+                <h1 class="hero-title mb-4">
+
+                    Smart
+                    <span>Fruit</span>
+                    <br>
+                    Detection System
+
+                </h1>
+
+
+                <p class="hero-text mb-4">
+
+                    Identify fruits using a machine learning model.
+                    Upload a fruit image, enter its characteristics,
+                    and let FruitDetect AI generate the prediction.
+
+                </p>
+
+
+                <div class="d-flex gap-3 flex-wrap">
+
+                    <a
+                        href="/predict/"
+                        class="btn btn-main btn-lg">
+
+                        <i class="bi bi-camera-fill me-2"></i>
+                        Start Detection
+
+                    </a>
+
+
+                    <a
+                        href="#features"
+                        class="btn btn-outline-main btn-lg">
+
+                        Explore Features
+                        <i class="bi bi-arrow-down ms-2"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-5">
+
+                <div class="hero-card text-center">
+
+                    <div class="fruit-circle mb-4">
+                        🍎
+                    </div>
+
+                    <h3 class="fw-bold">
+                        AI Fruit Recognition
+                    </h3>
+
+                    <p class="mb-4 opacity-75">
+
+                        Apple • Banana • Mango
+                        <br>
+                        Orange • Strawberry
+
+                    </p>
+
+
+                    <div class="row">
+
+                        <div class="col-6 hero-stat">
+
+                            <h3 class="fw-bold mb-0">
+                                5
+                            </h3>
+
+                            <small>
+                                Fruit Classes
+                            </small>
+
+                        </div>
+
+
+                        <div class="col-6 hero-stat">
+
+                            <h3 class="fw-bold mb-0">
+                                10+
+                            </h3>
+
+                            <small>
+                                Parameters
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- STATS -->
+<!-- ===================================================== -->
+
+<section class="stats-section py-5">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <div class="stat-card text-center">
+
+                    <div class="stat-number">
+                        5
+                    </div>
+
+                    <div class="text-muted">
+                        Supported Fruit Classes
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="stat-card text-center">
+
+                    <div class="stat-number">
+                        10
+                    </div>
+
+                    <div class="text-muted">
+                        Fruit Parameters
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="stat-card text-center">
+
+                    <div class="stat-number">
+                        ML
+                    </div>
+
+                    <div class="text-muted">
+                        Random Forest Prediction
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- FEATURES -->
+<!-- ===================================================== -->
+
+<section
+    id="features"
+    class="py-5">
+
+    <div class="container py-5">
+
+        <div class="text-center mb-5">
+
+            <span class="section-label">
+                HOW IT WORKS
+            </span>
+
+            <h2 class="section-title mt-2">
+                Simple & Intelligent
+            </h2>
+
+            <p class="text-muted mt-3">
+
+                A simple Django interface connected
+                with a trained machine learning model.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- FEATURE 1 -->
+
+            <div class="col-md-4">
+
+                <div class="card feature-card p-4">
+
+                    <div class="feature-icon mb-4">
+
+                        <i class="bi bi-cloud-arrow-up"></i>
+
+                    </div>
+
+                    <h4 class="fw-bold">
+                        Upload Image
+                    </h4>
+
+                    <p class="text-muted">
+
+                        Upload an image of the fruit using
+                        the easy-to-use prediction interface.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FEATURE 2 -->
+
+            <div class="col-md-4">
+
+                <div class="card feature-card p-4">
+
+                    <div class="feature-icon mb-4">
+
+                        <i class="bi bi-sliders"></i>
+
+                    </div>
+
+                    <h4 class="fw-bold">
+                        Enter Parameters
+                    </h4>
+
+                    <p class="text-muted">
+
+                        Provide characteristics such as weight,
+                        size, sweetness, acidity and dimensions.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FEATURE 3 -->
+
+            <div class="col-md-4">
+
+                <div class="card feature-card p-4">
+
+                    <div class="feature-icon mb-4">
+
+                        <i class="bi bi-cpu"></i>
+
+                    </div>
+
+                    <h4 class="fw-bold">
+                        Get Prediction
+                    </h4>
+
+                    <p class="text-muted">
+
+                        The trained Random Forest model analyzes
+                        the parameters and predicts the fruit.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- SUPPORTED FRUITS -->
+<!-- ===================================================== -->
+
+<section
+    id="fruits"
+    class="py-5 bg-light">
+
+    <div class="container py-5">
+
+        <div class="text-center mb-5">
+
+            <span class="section-label">
+                SUPPORTED FRUITS
+            </span>
+
+            <h2 class="section-title mt-2">
+                Detect These Fruits
+            </h2>
+
+            <p class="text-muted">
+                The current model supports five fruit classes.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-6 col-lg">
+
+                <div class="card fruit-card text-center">
+
+                    <div class="fruit-icon">
+                        🍎
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="fw-bold mb-0">
+                            Apple
+                        </h5>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg">
+
+                <div class="card fruit-card text-center">
+
+                    <div class="fruit-icon">
+                        🍌
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="fw-bold mb-0">
+                            Banana
+                        </h5>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg">
+
+                <div class="card fruit-card text-center">
+
+                    <div class="fruit-icon">
+                        🥭
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="fw-bold mb-0">
+                            Mango
+                        </h5>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg">
+
+                <div class="card fruit-card text-center">
+
+                    <div class="fruit-icon">
+                        🍊
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="fw-bold mb-0">
+                            Orange
+                        </h5>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg">
+
+                <div class="card fruit-card text-center">
+
+                    <div class="fruit-icon">
+                        🍓
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="fw-bold mb-0">
+                            Strawberry
+                        </h5>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- CTA -->
+<!-- ===================================================== -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="cta-section p-5 text-center">
+
+            <div class="position-relative z-1">
+
+                <i class="bi bi-magic fs-1"></i>
+
+                <h2 class="fw-bold mt-3">
+                    Ready to Detect a Fruit?
+                </h2>
+
+                <p class="mb-4 opacity-75">
+
+                    Upload your fruit image and enter
+                    its characteristics to get started.
+
+                </p>
+
+                <a
+                    href="/predict/"
+                    class="btn btn-light btn-lg px-5 rounded-pill text-success fw-bold">
+
+                    <i class="bi bi-camera-fill me-2"></i>
+                    Start Fruit Detection
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- FOOTER -->
+<!-- ===================================================== -->
+
+<footer class="main-footer">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <!-- BRAND -->
+
+            <div class="col-lg-5">
+
+                <a href="/" class="footer-brand">
+
+                    <span class="footer-brand-icon">
+
+                        <i class="bi bi-stars"></i>
+
+                    </span>
+
+                    FruitDetect AI
+
+                </a>
+
+                <p class="footer-text mt-3 mb-0">
+
+                    A machine learning powered fruit detection
+                    system built using Python, Django, SQLite
+                    and Random Forest.
+
+                </p>
+
+            </div>
+
+
+            <!-- LINKS -->
+
+            <div class="col-sm-6 col-lg-3">
+
+                <h5 class="footer-title">
+                    Quick Links
+                </h5>
+
+                <a href="/" class="footer-link">
+                    <i class="bi bi-house me-2"></i>
+                    Home
+                </a>
+
+                <a href="/predict/" class="footer-link">
+                    <i class="bi bi-cpu me-2"></i>
+                    Predict Fruit
+                </a>
+
+                <a href="/admin/" class="footer-link">
+                    <i class="bi bi-shield-lock me-2"></i>
+                    Admin
+                </a>
+
+            </div>
+
+
+            <!-- TECHNOLOGY -->
+
+            <div class="col-sm-6 col-lg-4">
+
+                <h5 class="footer-title">
+                    Technologies
+                </h5>
+
+                <span class="tech-badge">
+                    Python
+                </span>
+
+                <span class="tech-badge">
+                    Django
+                </span>
+
+                <span class="tech-badge">
+                    Machine Learning
+                </span>
+
+                <span class="tech-badge">
+                    Random Forest
+                </span>
+
+                <span class="tech-badge">
+                    SQLite
+                </span>
+
+                <span class="tech-badge">
+                    Bootstrap
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <hr class="footer-divider">
+
+
+        <div class="row align-items-center">
+
+            <div class="col-md-6">
+
+                <p class="copyright mb-md-0">
+                    © 2026 FruitDetect AI.
+                    All Rights Reserved.
+                </p>
+
+            </div>
+
+
+            <div class="col-md-6 text-md-end mt-2 mt-md-0">
+
+                <span class="copyright">
+
+                    <i class="bi bi-heart-fill text-danger me-1"></i>
+
+                    Built for Machine Learning Project
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+
+</html>
