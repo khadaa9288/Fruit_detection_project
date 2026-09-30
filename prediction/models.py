@@ -1,7 +1,20 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class FruitPrediction(models.Model):
+
+    # =====================================================
+    # USER
+    # =====================================================
+
+    user = models.ForeignKey(
+    User,
+    on_delete=models.CASCADE,
+    related_name="fruit_predictions",
+    null=True,
+    blank=True
+    )
 
     # =====================================================
     # UPLOADED IMAGE
@@ -67,5 +80,6 @@ class FruitPrediction(models.Model):
 
         return (
             f"{self.predicted_fruit} - "
+            f"{self.user.username} - "
             f"{self.created_at.strftime('%d-%m-%Y %H:%M')}"
         )

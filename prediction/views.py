@@ -4,7 +4,7 @@ import pandas as pd
 
 from django.conf import settings
 from django.shortcuts import render
-from django.core.files.storage import FileSystemStorage
+from django.contrib.auth.decorators import login_required
 
 from .forms import PredictionForm
 from .models import FruitPrediction
@@ -15,13 +15,9 @@ from .models import FruitPrediction
 # =========================================================
 
 MODEL_PATH = os.path.join(
-
     settings.BASE_DIR,
-
     "prediction",
-
     "fruit_detection_model.pkl"
-
 )
 
 
@@ -31,12 +27,8 @@ MODEL_PATH = os.path.join(
 
 model = None
 
-
 if os.path.exists(MODEL_PATH):
-
-    model = joblib.load(
-        MODEL_PATH
-    )
+    model = joblib.load(MODEL_PATH)
 
 
 # =========================================================
@@ -46,28 +38,23 @@ if os.path.exists(MODEL_PATH):
 def home(request):
 
     return render(
-
         request,
-
         "prediction/home.html"
-
     )
 
 
 # =========================================================
 # PREDICTION PAGE
+# LOGIN REQUIRED
 # =========================================================
 
+@login_required(login_url="/login/")
 def predict(request):
 
     prediction = None
-
     confidence = None
-
     image_url = None
-
     error = None
-
 
     # =====================================================
     # POST REQUEST
@@ -76,13 +63,9 @@ def predict(request):
     if request.method == "POST":
 
         form = PredictionForm(
-
             request.POST,
-
             request.FILES
-
         )
-
 
         # =================================================
         # VALIDATE FORM
@@ -101,7 +84,6 @@ def predict(request):
                     "Please run train_model.py first."
                 )
 
-
             else:
 
                 # -----------------------------------------
@@ -110,191 +92,102 @@ def predict(request):
 
                 data = form.cleaned_data
 
-
-                # -----------------------------------------
-                # UPLOAD IMAGE
-                # -----------------------------------------
-
-                uploaded_image = request.FILES.get(
-                    "fruit_image"
-                )
-
-
-                image_file = None
-
-
-                if uploaded_image:
-
-                    fs = FileSystemStorage(
-
-                        location=settings.MEDIA_ROOT,
-
-                        base_url=settings.MEDIA_URL
-
-                    )
-
-
-                    filename = fs.save(
-
-                        uploaded_image.name,
-
-                        uploaded_image
-
-                    )
-
-
-                    image_file = filename
-
-
-                    image_url = fs.url(
-                        filename
-                    )
-
-
                 # -----------------------------------------
                 # PREPARE MODEL INPUT
                 # -----------------------------------------
 
                 input_data = pd.DataFrame(
-
                     [
-
                         {
-
-                            "Fruit_Size":
-                                data["size"],
-
-                            "Fruit_Weight":
-                                data["weight"],
-
-                            "Fruit_Width":
-                                data["width"],
-
-                            "Fruit_Height":
-                                data["height"],
-
-                            "Fruit_Color":
-                                data["color"],
-
-                            "Fruit_Texture":
-                                data["texture"],
-
-                            "Sweetness":
-                                data["sweetness"],
-
-                            "Acidity":
-                                data["acidity"],
-
-                            "Ripeness":
-                                data["ripeness"]
-
+                            "Fruit_Size": data["size"],
+                            "Fruit_Weight": data["weight"],
+                            "Fruit_Width": data["width"],
+                            "Fruit_Height": data["height"],
+                            "Fruit_Color": data["color"],
+                            "Fruit_Texture": data["texture"],
+                            "Sweetness": data["sweetness"],
+                            "Acidity": data["acidity"],
+                            "Ripeness": data["ripeness"],
                         }
-
                     ]
-
                 )
-
 
                 # -----------------------------------------
                 # PREDICT
                 # -----------------------------------------
 
                 prediction_result = model.predict(
-
                     input_data
-
                 )
-
 
                 prediction = str(
-
                     prediction_result[0]
-
                 )
-
 
                 # -----------------------------------------
                 # CONFIDENCE
                 # -----------------------------------------
 
-                if hasattr(
+                if hasattr(model, "predict_proba"):
 
-                    model,
-
-                    "predict_proba"
-
-                ):
-
-                    probabilities = (
-
-                        model.predict_proba(
-
-                            input_data
-
-                        )
-
+                    probabilities = model.predict_proba(
+                        input_data
                     )
-
 
                     confidence = round(
-
-                        float(
-
-                            probabilities.max()
-
-                        ) * 100,
-
+                        float(probabilities.max()) * 100,
                         2
-
                     )
 
-
                 # -----------------------------------------
-                # SAVE DATABASE RECORD
+                # CREATE DATABASE RECORD
                 # -----------------------------------------
 
                 prediction_record = FruitPrediction(
+                    user=request.user,
 
                     size=data["size"],
-
                     weight=data["weight"],
-
                     width=data["width"],
-
                     height=data["height"],
 
                     color=data["color"],
-
                     texture=data["texture"],
 
                     sweetness=data["sweetness"],
-
                     acidity=data["acidity"],
-
                     ripeness=data["ripeness"],
 
                     predicted_fruit=prediction,
 
                     confidence=confidence or 0.0
-
                 )
 
+                # -----------------------------------------
+                # SAVE UPLOADED IMAGE
+                # -----------------------------------------
+
+                uploaded_image = request.FILES.get(
+                    "fruit_image"
+                )
+
+                if uploaded_image:
+
+                    prediction_record.image = uploaded_image
 
                 # -----------------------------------------
-                # SAVE IMAGE
-                # -----------------------------------------
-
-                if image_file:
-
-                    prediction_record.image = image_file
-
-
-                # -----------------------------------------
-                # SAVE RECORD
+                # SAVE COMPLETE RECORD
                 # -----------------------------------------
 
                 prediction_record.save()
 
+                # -----------------------------------------
+                # GET CORRECT IMAGE URL
+                # -----------------------------------------
+
+                if prediction_record.image:
+
+                    image_url = prediction_record.image.url
 
     # =====================================================
     # GET REQUEST
@@ -304,36 +197,24 @@ def predict(request):
 
         form = PredictionForm()
 
-
     # =====================================================
     # CONTEXT
     # =====================================================
 
     context = {
-
         "form": form,
-
         "prediction": prediction,
-
         "confidence": confidence,
-
         "image_url": image_url,
-
-        "error": error
-
+        "error": error,
     }
-
 
     # =====================================================
     # RENDER
     # =====================================================
 
     return render(
-
         request,
-
         "prediction/predict.html",
-
         context
-
     )

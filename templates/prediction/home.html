@@ -10,19 +10,35 @@
 
     <title>FruitDetect AI | Fruit Detection System</title>
 
-    <!-- Bootstrap 5 -->
+
+    <!-- =====================================================
+         BOOTSTRAP 5
+    ====================================================== -->
+
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet">
 
-    <!-- Bootstrap Icons -->
+
+    <!-- =====================================================
+         BOOTSTRAP ICONS
+    ====================================================== -->
+
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
         rel="stylesheet">
 
+
+    <!-- =====================================================
+         CUSTOM CSS
+    ====================================================== -->
+
     <style>
 
-        /* ================= GLOBAL ================= */
+        html {
+            scroll-behavior: smooth;
+        }
+
 
         body {
             font-family: Arial, sans-serif;
@@ -30,55 +46,96 @@
             color: #17221c;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
 
-        /* ================= NAVBAR ================= */
+        /* =====================================================
+           NAVBAR
+        ====================================================== */
 
         .navbar {
-            background: rgba(255, 255, 255, 0.96);
+            background: rgba(255, 255, 255, 0.97);
             backdrop-filter: blur(12px);
         }
+
 
         .navbar-brand {
             font-size: 1.45rem;
             font-weight: 800;
         }
 
+
         .brand-icon {
             width: 42px;
             height: 42px;
+
             display: inline-flex;
             align-items: center;
             justify-content: center;
+
             border-radius: 12px;
             margin-right: 8px;
-            background: linear-gradient(135deg, #198754, #20c997);
+
+            background: linear-gradient(
+                135deg,
+                #198754,
+                #20c997
+            );
+
             color: white;
         }
+
 
         .nav-link {
             font-weight: 600;
         }
 
+
         .nav-link:hover {
             color: #198754 !important;
         }
 
-        /* ================= HERO ================= */
+
+        .nav-link.active {
+            color: #198754 !important;
+            font-weight: 700;
+        }
+
+
+        .btn-navbar {
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+
+        .profile-nav-link {
+            color: #198754 !important;
+            font-weight: 700;
+        }
+
+
+        .profile-nav-link:hover {
+            color: #146c43 !important;
+        }
+
+
+        /* =====================================================
+           HERO
+        ====================================================== */
 
         .hero {
+
             min-height: 650px;
+
             display: flex;
             align-items: center;
 
             background:
+
                 radial-gradient(
                     circle at 80% 20%,
                     rgba(255,255,255,0.18),
                     transparent 25%
                 ),
+
                 linear-gradient(
                     135deg,
                     #087f5b,
@@ -87,212 +144,366 @@
                 );
 
             color: white;
+
             position: relative;
             overflow: hidden;
         }
 
+
         .hero::before {
+
             content: "";
+
             position: absolute;
+
             width: 350px;
             height: 350px;
+
             border-radius: 50%;
+
             background: rgba(255,255,255,0.08);
+
             top: -150px;
             right: -80px;
         }
 
+
         .hero::after {
+
             content: "";
+
             position: absolute;
+
             width: 250px;
             height: 250px;
+
             border-radius: 50%;
+
             background: rgba(255,255,255,0.06);
+
             bottom: -120px;
             left: -80px;
         }
+
 
         .hero-content {
             position: relative;
             z-index: 2;
         }
 
+
         .hero-title {
+
             font-size: 3.8rem;
             font-weight: 800;
             line-height: 1.08;
         }
 
+
         .hero-title span {
             color: #d1fae5;
         }
 
+
         .hero-text {
+
             font-size: 1.15rem;
             line-height: 1.8;
+
             opacity: 0.93;
+
             max-width: 650px;
         }
 
+
         .hero-card {
+
             background: rgba(255,255,255,0.13);
+
             border: 1px solid rgba(255,255,255,0.25);
+
             border-radius: 30px;
+
             padding: 35px;
+
             backdrop-filter: blur(15px);
-            box-shadow: 0 25px 70px rgba(0,0,0,0.18);
+
+            box-shadow:
+                0 25px 70px rgba(0,0,0,0.18);
         }
 
+
         .fruit-circle {
+
             width: 145px;
             height: 145px;
+
             margin: auto;
+
             border-radius: 50%;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             background: rgba(255,255,255,0.17);
+
             font-size: 5rem;
+
             box-shadow:
+
                 0 0 0 15px rgba(255,255,255,0.05),
+
                 0 15px 35px rgba(0,0,0,0.15);
         }
 
+
         .hero-stat {
-            border-right: 1px solid rgba(255,255,255,0.2);
+
+            border-right:
+                1px solid rgba(255,255,255,0.2);
         }
+
 
         .hero-stat:last-child {
             border-right: none;
         }
 
-        /* ================= BUTTONS ================= */
+
+        /* =====================================================
+           BUTTONS
+        ====================================================== */
 
         .btn-main {
+
             background: white;
+
             color: #198754;
+
             border: none;
+
             font-weight: 700;
+
             padding: 13px 25px;
+
             border-radius: 50px;
+
             transition: 0.3s;
         }
 
+
         .btn-main:hover {
+
             transform: translateY(-3px);
+
             background: #f8f9fa;
+
             color: #146c43;
-            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+
+            box-shadow:
+                0 12px 25px rgba(0,0,0,0.15);
         }
 
+
         .btn-outline-main {
-            border: 1px solid rgba(255,255,255,0.7);
+
+            border:
+                1px solid rgba(255,255,255,0.7);
+
             color: white;
+
             font-weight: 700;
+
             padding: 13px 25px;
+
             border-radius: 50px;
         }
 
+
         .btn-outline-main:hover {
+
             background: white;
+
             color: #198754;
         }
 
-        /* ================= SECTION ================= */
+
+        /* =====================================================
+           SECTION
+        ====================================================== */
 
         .section-title {
+
             font-weight: 800;
+
             font-size: 2.3rem;
         }
 
+
         .section-label {
+
             color: #198754;
+
             font-weight: 800;
+
             letter-spacing: 1.5px;
+
             font-size: 0.85rem;
         }
 
-        /* ================= FEATURE CARDS ================= */
 
-        .feature-card {
-            border: none;
-            border-radius: 22px;
-            height: 100%;
-            background: white;
-            transition: 0.35s;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-9px);
-            box-shadow: 0 20px 45px rgba(0,0,0,0.12);
-        }
-
-        .feature-icon {
-            width: 68px;
-            height: 68px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.7rem;
-            background: linear-gradient(
-                135deg,
-                #e8f5ee,
-                #d1fae5
-            );
-            color: #198754;
-        }
-
-        /* ================= FRUIT CARDS ================= */
-
-        .fruit-card {
-            border: none;
-            border-radius: 22px;
-            overflow: hidden;
-            background: white;
-            transition: 0.3s;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-        }
-
-        .fruit-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 18px 40px rgba(0,0,0,0.12);
-        }
-
-        .fruit-icon {
-            font-size: 4.5rem;
-            padding: 28px 10px 15px;
-            background: linear-gradient(
-                135deg,
-                #f8fff8,
-                #eef8ff
-            );
-        }
-
-        /* ================= STATS ================= */
+        /* =====================================================
+           STATS
+        ====================================================== */
 
         .stats-section {
-            background: #ffffff;
+            background: white;
         }
+
 
         .stat-card {
+
             border: none;
+
             border-radius: 20px;
+
             padding: 25px;
+
             background: #f8faf9;
+
+            height: 100%;
+
+            transition: 0.3s;
         }
 
+
+        .stat-card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,0.08);
+        }
+
+
         .stat-number {
+
             font-size: 2.2rem;
+
             font-weight: 800;
+
             color: #198754;
         }
 
-        /* ================= CTA ================= */
+
+        /* =====================================================
+           FEATURE CARDS
+        ====================================================== */
+
+        .feature-card {
+
+            border: none;
+
+            border-radius: 22px;
+
+            height: 100%;
+
+            background: white;
+
+            transition: 0.35s;
+
+            box-shadow:
+                0 8px 30px rgba(0,0,0,0.06);
+        }
+
+
+        .feature-card:hover {
+
+            transform: translateY(-9px);
+
+            box-shadow:
+                0 20px 45px rgba(0,0,0,0.12);
+        }
+
+
+        .feature-icon {
+
+            width: 68px;
+            height: 68px;
+
+            border-radius: 20px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 1.7rem;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e8f5ee,
+                    #d1fae5
+                );
+
+            color: #198754;
+        }
+
+
+        /* =====================================================
+           FRUIT CARDS
+        ====================================================== */
+
+        .fruit-card {
+
+            border: none;
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            background: white;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.06);
+        }
+
+
+        .fruit-card:hover {
+
+            transform:
+                translateY(-8px)
+                scale(1.02);
+
+            box-shadow:
+                0 18px 40px rgba(0,0,0,0.12);
+        }
+
+
+        .fruit-icon {
+
+            font-size: 4.5rem;
+
+            padding: 28px 10px 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f8fff8,
+                    #eef8ff
+                );
+        }
+
+
+        /* =====================================================
+           CTA
+        ====================================================== */
 
         .cta-section {
+
             background:
                 linear-gradient(
                     135deg,
@@ -302,142 +513,229 @@
                 );
 
             color: white;
+
             border-radius: 30px;
+
             overflow: hidden;
+
             position: relative;
         }
 
+
         .cta-section::after {
+
             content: "";
+
             position: absolute;
+
             width: 250px;
             height: 250px;
+
             border-radius: 50%;
-            background: rgba(255,255,255,0.08);
+
+            background:
+                rgba(255,255,255,0.08);
+
             right: -80px;
             top: -100px;
         }
 
-        /* ================= FOOTER ================= */
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
 
         .main-footer {
+
             background: #111827;
+
             color: #9ca3af;
+
             padding: 55px 0 25px;
         }
 
+
         .footer-brand {
+
             color: white;
+
             text-decoration: none;
+
             font-size: 1.5rem;
+
             font-weight: 800;
+
             display: inline-flex;
+
             align-items: center;
         }
+
 
         .footer-brand:hover {
             color: #20c997;
         }
 
+
         .footer-brand-icon {
+
             width: 42px;
             height: 42px;
+
             display: inline-flex;
+
             align-items: center;
             justify-content: center;
+
             background: #198754;
+
             color: white;
+
             border-radius: 12px;
+
             margin-right: 10px;
         }
 
+
         .footer-text {
+
             max-width: 500px;
+
             line-height: 1.8;
         }
 
+
         .footer-title {
+
             color: white;
+
             font-weight: 700;
+
             margin-bottom: 18px;
         }
 
+
         .footer-link {
+
             display: block;
+
             color: #9ca3af;
+
             text-decoration: none;
+
             margin-bottom: 11px;
+
             transition: 0.3s;
         }
 
+
         .footer-link:hover {
+
             color: #20c997;
+
             padding-left: 5px;
         }
 
+
         .tech-badge {
+
             display: inline-block;
+
             background: #1f2937;
+
             color: #d1d5db;
+
             border: 1px solid #374151;
+
             padding: 7px 12px;
+
             border-radius: 20px;
+
             margin: 0 5px 8px 0;
+
             font-size: 0.82rem;
         }
 
+
         .footer-divider {
+
             border-color: #374151;
+
             margin: 35px 0 20px;
         }
 
+
         .copyright {
+
             color: #9ca3af;
+
             font-size: 0.9rem;
         }
 
-        /* ================= RESPONSIVE ================= */
+
+        /* =====================================================
+           RESPONSIVE
+        ====================================================== */
 
         @media (max-width: 992px) {
 
             .hero {
+
                 text-align: center;
+
                 padding: 80px 0;
             }
 
+
             .hero-title {
+
                 font-size: 3rem;
             }
 
+
             .hero-text {
+
                 margin-left: auto;
+
                 margin-right: auto;
             }
 
         }
 
+
         @media (max-width: 576px) {
 
             .hero-title {
+
                 font-size: 2.4rem;
             }
 
+
             .hero-card {
+
                 padding: 25px;
             }
 
+
             .fruit-circle {
+
                 width: 115px;
+
                 height: 115px;
+
                 font-size: 4rem;
             }
 
+
             .main-footer {
+
                 text-align: center;
             }
 
+
             .footer-text {
+
                 margin-left: auto;
+
                 margin-right: auto;
             }
 
@@ -451,18 +749,26 @@
 <body>
 
 
-<!-- ===================================================== -->
-<!-- NAVBAR -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     NAVBAR
+====================================================== -->
 
 <nav class="navbar navbar-expand-lg shadow-sm sticky-top">
 
     <div class="container">
 
-        <a class="navbar-brand text-success" href="/">
+
+        <!-- BRAND -->
+
+        <a
+            class="navbar-brand text-success"
+            href="{% url 'home' %}"
+        >
 
             <span class="brand-icon">
+
                 <i class="bi bi-stars"></i>
+
             </span>
 
             FruitDetect AI
@@ -470,53 +776,202 @@
         </a>
 
 
+        <!-- MOBILE MENU -->
+
         <button
             class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#mainNavbar">
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
 
             <span class="navbar-toggler-icon"></span>
 
         </button>
 
 
+        <!-- NAVIGATION -->
+
         <div
             class="collapse navbar-collapse"
-            id="mainNavbar">
+            id="mainNavbar"
+        >
 
-            <ul class="navbar-nav ms-auto align-items-lg-center">
+            <ul
+                class="navbar-nav ms-auto align-items-lg-center"
+            >
 
-                <li class="nav-item">
-                    <a class="nav-link active" href="/">
-                        Home
-                    </a>
-                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#features">
-                        Features
-                    </a>
-                </li>
+                <!-- HOME -->
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#fruits">
-                        Fruits
-                    </a>
-                </li>
-
-                <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
 
                     <a
-                        href="/predict/"
-                        class="btn btn-success px-4 rounded-pill">
-
-                        <i class="bi bi-camera me-1"></i>
-                        Detect Fruit
-
+                        class="nav-link active"
+                        href="{% url 'home' %}"
+                    >
+                        Home
                     </a>
 
                 </li>
+
+
+                <!-- FEATURES -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="#features"
+                    >
+                        Features
+                    </a>
+
+                </li>
+
+
+                <!-- FRUITS -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="#fruits"
+                    >
+                        Fruits
+                    </a>
+
+                </li>
+
+
+                {% if user.is_authenticated %}
+
+
+                    <!-- PROFILE -->
+
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                        <a
+                            href="{% url 'profile' %}"
+                            class="nav-link profile-nav-link"
+                        >
+
+                            <i class="bi bi-person-circle me-1"></i>
+
+                            Profile
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- USER -->
+
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                        <span
+                            class="nav-link text-success fw-bold"
+                        >
+
+                            <i class="bi bi-person-fill me-1"></i>
+
+                            {{ user.username }}
+
+                        </span>
+
+                    </li>
+
+
+                    <!-- LOGOUT -->
+
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                        <form
+                            method="POST"
+                            action="{% url 'logout' %}"
+                            class="d-inline"
+                        >
+
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="btn btn-outline-danger btn-navbar px-3"
+                            >
+
+                                <i class="bi bi-box-arrow-right me-1"></i>
+
+                                Logout
+
+                            </button>
+
+                        </form>
+
+                    </li>
+
+
+                    <!-- DETECT -->
+
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                        <a
+                            href="{% url 'predict' %}"
+                            class="btn btn-success btn-navbar px-4"
+                        >
+
+                            <i class="bi bi-camera me-1"></i>
+
+                            Detect Fruit
+
+                        </a>
+
+                    </li>
+
+
+                {% else %}
+
+
+                    <!-- LOGIN -->
+
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+
+                        <a
+                            href="{% url 'login' %}"
+                            class="btn btn-outline-success btn-navbar px-4"
+                        >
+
+                            <i class="bi bi-box-arrow-in-right me-1"></i>
+
+                            Login
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- REGISTER -->
+
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                        <a
+                            href="{% url 'register' %}"
+                            class="btn btn-success btn-navbar px-4"
+                        >
+
+                            <i class="bi bi-person-plus me-1"></i>
+
+                            Register
+
+                        </a>
+
+                    </li>
+
+
+                {% endif %}
+
 
             </ul>
 
@@ -527,9 +982,9 @@
 </nav>
 
 
-<!-- ===================================================== -->
-<!-- HERO -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     HERO SECTION
+====================================================== -->
 
 <section class="hero">
 
@@ -537,12 +992,18 @@
 
         <div class="row align-items-center g-5">
 
+
+            <!-- LEFT -->
+
             <div class="col-lg-7">
 
+
                 <span
-                    class="badge bg-light text-success px-3 py-2 rounded-pill mb-4">
+                    class="badge bg-light text-success px-3 py-2 rounded-pill mb-4"
+                >
 
                     <i class="bi bi-cpu me-1"></i>
+
                     Machine Learning Powered
 
                 </span>
@@ -551,8 +1012,11 @@
                 <h1 class="hero-title mb-4">
 
                     Smart
+
                     <span>Fruit</span>
+
                     <br>
+
                     Detection System
 
                 </h1>
@@ -569,11 +1033,14 @@
 
                 <div class="d-flex gap-3 flex-wrap">
 
+
                     <a
-                        href="/predict/"
-                        class="btn btn-main btn-lg">
+                        href="{% url 'predict' %}"
+                        class="btn btn-main btn-lg"
+                    >
 
                         <i class="bi bi-camera-fill me-2"></i>
+
                         Start Detection
 
                     </a>
@@ -581,34 +1048,50 @@
 
                     <a
                         href="#features"
-                        class="btn btn-outline-main btn-lg">
+                        class="btn btn-outline-main btn-lg"
+                    >
 
                         Explore Features
+
                         <i class="bi bi-arrow-down ms-2"></i>
 
                     </a>
 
+
                 </div>
+
 
             </div>
 
 
+            <!-- RIGHT -->
+
             <div class="col-lg-5">
+
 
                 <div class="hero-card text-center">
 
+
                     <div class="fruit-circle mb-4">
+
                         🍎
+
                     </div>
 
+
                     <h3 class="fw-bold">
+
                         AI Fruit Recognition
+
                     </h3>
+
 
                     <p class="mb-4 opacity-75">
 
                         Apple • Banana • Mango
+
                         <br>
+
                         Orange • Strawberry
 
                     </p>
@@ -616,14 +1099,19 @@
 
                     <div class="row">
 
+
                         <div class="col-6 hero-stat">
 
                             <h3 class="fw-bold mb-0">
+
                                 5
+
                             </h3>
 
                             <small>
+
                                 Fruit Classes
+
                             </small>
 
                         </div>
@@ -632,18 +1120,24 @@
                         <div class="col-6 hero-stat">
 
                             <h3 class="fw-bold mb-0">
-                                10+
+
+                                9
+
                             </h3>
 
                             <small>
+
                                 Parameters
+
                             </small>
 
                         </div>
+
 
                     </div>
 
                 </div>
+
 
             </div>
 
@@ -654,9 +1148,9 @@
 </section>
 
 
-<!-- ===================================================== -->
-<!-- STATS -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     STATS
+====================================================== -->
 
 <section class="stats-section py-5">
 
@@ -664,16 +1158,21 @@
 
         <div class="row g-4">
 
+
             <div class="col-md-4">
 
                 <div class="stat-card text-center">
 
                     <div class="stat-number">
+
                         5
+
                     </div>
 
                     <div class="text-muted">
+
                         Supported Fruit Classes
+
                     </div>
 
                 </div>
@@ -686,11 +1185,15 @@
                 <div class="stat-card text-center">
 
                     <div class="stat-number">
-                        10
+
+                        9
+
                     </div>
 
                     <div class="text-muted">
+
                         Fruit Parameters
+
                     </div>
 
                 </div>
@@ -703,16 +1206,21 @@
                 <div class="stat-card text-center">
 
                     <div class="stat-number">
+
                         ML
+
                     </div>
 
                     <div class="text-muted">
+
                         Random Forest Prediction
+
                     </div>
 
                 </div>
 
             </div>
+
 
         </div>
 
@@ -721,25 +1229,33 @@
 </section>
 
 
-<!-- ===================================================== -->
-<!-- FEATURES -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     FEATURES
+====================================================== -->
 
 <section
     id="features"
-    class="py-5">
+    class="py-5"
+>
 
     <div class="container py-5">
+
 
         <div class="text-center mb-5">
 
             <span class="section-label">
+
                 HOW IT WORKS
+
             </span>
 
+
             <h2 class="section-title mt-2">
+
                 Simple & Intelligent
+
             </h2>
+
 
             <p class="text-muted mt-3">
 
@@ -766,9 +1282,13 @@
 
                     </div>
 
+
                     <h4 class="fw-bold">
+
                         Upload Image
+
                     </h4>
+
 
                     <p class="text-muted">
 
@@ -794,9 +1314,13 @@
 
                     </div>
 
+
                     <h4 class="fw-bold">
+
                         Enter Parameters
+
                     </h4>
+
 
                     <p class="text-muted">
 
@@ -822,9 +1346,13 @@
 
                     </div>
 
+
                     <h4 class="fw-bold">
+
                         Get Prediction
+
                     </h4>
+
 
                     <p class="text-muted">
 
@@ -837,6 +1365,7 @@
 
             </div>
 
+
         </div>
 
     </div>
@@ -844,28 +1373,38 @@
 </section>
 
 
-<!-- ===================================================== -->
-<!-- SUPPORTED FRUITS -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     SUPPORTED FRUITS
+====================================================== -->
 
 <section
     id="fruits"
-    class="py-5 bg-light">
+    class="py-5 bg-light"
+>
 
     <div class="container py-5">
+
 
         <div class="text-center mb-5">
 
             <span class="section-label">
+
                 SUPPORTED FRUITS
+
             </span>
 
+
             <h2 class="section-title mt-2">
+
                 Detect These Fruits
+
             </h2>
 
+
             <p class="text-muted">
+
                 The current model supports five fruit classes.
+
             </p>
 
         </div>
@@ -874,18 +1413,27 @@
         <div class="row g-4">
 
 
+            <!-- APPLE -->
+
             <div class="col-6 col-lg">
 
                 <div class="card fruit-card text-center">
 
                     <div class="fruit-icon">
+
                         🍎
+
                     </div>
 
+
                     <div class="card-body">
+
                         <h5 class="fw-bold mb-0">
+
                             Apple
+
                         </h5>
+
                     </div>
 
                 </div>
@@ -893,18 +1441,27 @@
             </div>
 
 
+            <!-- BANANA -->
+
             <div class="col-6 col-lg">
 
                 <div class="card fruit-card text-center">
 
                     <div class="fruit-icon">
+
                         🍌
+
                     </div>
 
+
                     <div class="card-body">
+
                         <h5 class="fw-bold mb-0">
+
                             Banana
+
                         </h5>
+
                     </div>
 
                 </div>
@@ -912,18 +1469,27 @@
             </div>
 
 
+            <!-- MANGO -->
+
             <div class="col-6 col-lg">
 
                 <div class="card fruit-card text-center">
 
                     <div class="fruit-icon">
+
                         🥭
+
                     </div>
 
+
                     <div class="card-body">
+
                         <h5 class="fw-bold mb-0">
+
                             Mango
+
                         </h5>
+
                     </div>
 
                 </div>
@@ -931,42 +1497,61 @@
             </div>
 
 
+            <!-- ORANGE -->
+
             <div class="col-6 col-lg">
 
                 <div class="card fruit-card text-center">
 
                     <div class="fruit-icon">
+
                         🍊
+
                     </div>
 
+
                     <div class="card-body">
+
                         <h5 class="fw-bold mb-0">
+
                             Orange
+
                         </h5>
+
                     </div>
 
                 </div>
 
             </div>
 
+
+            <!-- STRAWBERRY -->
 
             <div class="col-6 col-lg">
 
                 <div class="card fruit-card text-center">
 
                     <div class="fruit-icon">
+
                         🍓
+
                     </div>
 
+
                     <div class="card-body">
+
                         <h5 class="fw-bold mb-0">
+
                             Strawberry
+
                         </h5>
+
                     </div>
 
                 </div>
 
             </div>
+
 
         </div>
 
@@ -975,9 +1560,9 @@
 </section>
 
 
-<!-- ===================================================== -->
-<!-- CTA -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     CTA
+====================================================== -->
 
 <section class="py-5">
 
@@ -985,13 +1570,19 @@
 
         <div class="cta-section p-5 text-center">
 
+
             <div class="position-relative z-1">
+
 
                 <i class="bi bi-magic fs-1"></i>
 
+
                 <h2 class="fw-bold mt-3">
+
                     Ready to Detect a Fruit?
+
                 </h2>
+
 
                 <p class="mb-4 opacity-75">
 
@@ -1000,14 +1591,18 @@
 
                 </p>
 
+
                 <a
-                    href="/predict/"
-                    class="btn btn-light btn-lg px-5 rounded-pill text-success fw-bold">
+                    href="{% url 'predict' %}"
+                    class="btn btn-light btn-lg px-5 rounded-pill text-success fw-bold"
+                >
 
                     <i class="bi bi-camera-fill me-2"></i>
+
                     Start Fruit Detection
 
                 </a>
+
 
             </div>
 
@@ -1018,21 +1613,29 @@
 </section>
 
 
-<!-- ===================================================== -->
-<!-- FOOTER -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     FOOTER
+====================================================== -->
 
 <footer class="main-footer">
 
     <div class="container">
 
+
         <div class="row g-4">
 
-            <!-- BRAND -->
+
+            <!-- =================================================
+                 BRAND
+            ================================================== -->
 
             <div class="col-lg-5">
 
-                <a href="/" class="footer-brand">
+
+                <a
+                    href="{% url 'home' %}"
+                    class="footer-brand"
+                >
 
                     <span class="footer-brand-icon">
 
@@ -1044,90 +1647,286 @@
 
                 </a>
 
+
                 <p class="footer-text mt-3 mb-0">
 
                     A machine learning powered fruit detection
-                    system built using Python, Django, SQLite
-                    and Random Forest.
+                    system designed to identify fruits using
+                    their characteristics and a trained
+                    Random Forest model.
 
                 </p>
 
+
+                <div class="mt-3">
+
+                    <span class="tech-badge">
+
+                        <i class="bi bi-code-slash me-1"></i>
+
+                        Python
+
+                    </span>
+
+
+                    <span class="tech-badge">
+
+                        <i class="bi bi-window me-1"></i>
+
+                        Django
+
+                    </span>
+
+                </div>
+
+
             </div>
 
 
-            <!-- LINKS -->
+            <!-- =================================================
+                 QUICK LINKS
+            ================================================== -->
 
             <div class="col-sm-6 col-lg-3">
 
+
                 <h5 class="footer-title">
+
                     Quick Links
+
                 </h5>
 
-                <a href="/" class="footer-link">
+
+                <a
+                    href="{% url 'home' %}"
+                    class="footer-link"
+                >
+
                     <i class="bi bi-house me-2"></i>
+
                     Home
+
                 </a>
 
-                <a href="/predict/" class="footer-link">
+
+                <a
+                    href="#features"
+                    class="footer-link"
+                >
+
+                    <i class="bi bi-stars me-2"></i>
+
+                    Features
+
+                </a>
+
+
+                <a
+                    href="#fruits"
+                    class="footer-link"
+                >
+
+                    <i class="bi bi-apple me-2"></i>
+
+                    Supported Fruits
+
+                </a>
+
+
+                <a
+                    href="{% url 'predict' %}"
+                    class="footer-link"
+                >
+
                     <i class="bi bi-cpu me-2"></i>
+
                     Predict Fruit
+
                 </a>
 
-                <a href="/admin/" class="footer-link">
-                    <i class="bi bi-shield-lock me-2"></i>
-                    Admin
-                </a>
+
+                {% if user.is_authenticated %}
+
+
+                    <a
+                        href="{% url 'profile' %}"
+                        class="footer-link"
+                    >
+
+                        <i class="bi bi-person-circle me-2"></i>
+
+                        My Profile
+
+                    </a>
+
+
+                    <a
+                        href="{% url 'logout' %}"
+                        class="footer-link"
+                        onclick="event.preventDefault(); this.closest('div').querySelector('.footer-logout-form').submit();"
+                    >
+
+                        <i class="bi bi-box-arrow-right me-2"></i>
+
+                        Logout
+
+                    </a>
+
+
+                {% else %}
+
+
+                    <a
+                        href="{% url 'login' %}"
+                        class="footer-link"
+                    >
+
+                        <i class="bi bi-box-arrow-in-right me-2"></i>
+
+                        Login
+
+                    </a>
+
+
+                    <a
+                        href="{% url 'register' %}"
+                        class="footer-link"
+                    >
+
+                        <i class="bi bi-person-plus me-2"></i>
+
+                        Create Account
+
+                    </a>
+
+
+                {% endif %}
+
 
             </div>
 
 
-            <!-- TECHNOLOGY -->
+            <!-- =================================================
+                 ACCOUNT / TECHNOLOGY
+            ================================================== -->
 
             <div class="col-sm-6 col-lg-4">
 
+
                 <h5 class="footer-title">
-                    Technologies
+
+                    Project Technology
+
                 </h5>
 
+
                 <span class="tech-badge">
+
                     Python
+
                 </span>
 
+
                 <span class="tech-badge">
+
                     Django
+
                 </span>
 
-                <span class="tech-badge">
-                    Machine Learning
-                </span>
 
                 <span class="tech-badge">
-                    Random Forest
-                </span>
 
-                <span class="tech-badge">
-                    SQLite
-                </span>
-
-                <span class="tech-badge">
                     Bootstrap
+
                 </span>
+
+
+                <span class="tech-badge">
+
+                    Machine Learning
+
+                </span>
+
+
+                <span class="tech-badge">
+
+                    Random Forest
+
+                </span>
+
+
+                <span class="tech-badge">
+
+                    SQLite
+
+                </span>
+
+
+                {% if user.is_authenticated %}
+
+                    <div class="mt-3 text-white">
+
+                        <i class="bi bi-person-check me-2"></i>
+
+                        Logged in as:
+
+                        <strong>
+                            {{ user.username }}
+                        </strong>
+
+                    </div>
+
+                {% endif %}
+
 
             </div>
+
 
         </div>
 
 
+        <!-- =====================================================
+             FOOTER LOGOUT FORM
+        ====================================================== -->
+
+        {% if user.is_authenticated %}
+
+            <form
+                method="POST"
+                action="{% url 'logout' %}"
+                class="footer-logout-form d-none"
+            >
+
+                {% csrf_token %}
+
+            </form>
+
+        {% endif %}
+
+
+        <!-- =====================================================
+             DIVIDER
+        ====================================================== -->
+
         <hr class="footer-divider">
 
 
+        <!-- =====================================================
+             COPYRIGHT
+        ====================================================== -->
+
         <div class="row align-items-center">
+
 
             <div class="col-md-6">
 
+
                 <p class="copyright mb-md-0">
+
                     © 2026 FruitDetect AI.
+
                     All Rights Reserved.
+
                 </p>
 
             </div>
@@ -1135,24 +1934,31 @@
 
             <div class="col-md-6 text-md-end mt-2 mt-md-0">
 
+
                 <span class="copyright">
 
-                    <i class="bi bi-heart-fill text-danger me-1"></i>
+                    <i
+                        class="bi bi-heart-fill text-danger me-1"
+                    ></i>
 
-                    Built for Machine Learning Project
+                    Built with Django & Machine Learning
 
                 </span>
 
             </div>
 
+
         </div>
+
 
     </div>
 
 </footer>
 
 
-<!-- Bootstrap JS -->
+<!-- =====================================================
+     BOOTSTRAP JAVASCRIPT
+====================================================== -->
 
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
