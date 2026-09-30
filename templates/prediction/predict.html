@@ -274,6 +274,14 @@
         .confidence-bar {
             height: 10px;
             border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .confidence-progress {
+            height: 100%;
+            border-radius: 10px;
+            width: 0;
+            transition: width 0.8s ease;
         }
 
 
@@ -447,30 +455,41 @@
                 <!-- HOME -->
 
                 <li class="nav-item">
+
                     <a
                         class="nav-link"
                         href="{% url 'home' %}"
                     >
+
                         <i class="bi bi-house-door me-1"></i>
+
                         Home
+
                     </a>
+
                 </li>
 
 
                 <!-- PREDICT -->
 
                 <li class="nav-item">
+
                     <a
                         class="nav-link active"
                         href="{% url 'predict' %}"
                     >
+
                         <i class="bi bi-cpu me-1"></i>
+
                         Predict
+
                     </a>
+
                 </li>
 
 
                 {% if user.is_authenticated %}
+
 
                     <!-- PROFILE -->
 
@@ -480,8 +499,11 @@
                             class="nav-link"
                             href="{% url 'profile' %}"
                         >
+
                             <i class="bi bi-person-circle me-1"></i>
+
                             Profile
+
                         </a>
 
                     </li>
@@ -532,6 +554,7 @@
 
                 {% else %}
 
+
                     <!-- LOGIN -->
 
                     <li class="nav-item ms-lg-2">
@@ -540,8 +563,11 @@
                             class="nav-link"
                             href="{% url 'login' %}"
                         >
+
                             <i class="bi bi-box-arrow-in-right me-1"></i>
+
                             Login
+
                         </a>
 
                     </li>
@@ -555,10 +581,13 @@
                             class="btn btn-light btn-sm rounded-pill px-3"
                             href="{% url 'register' %}"
                         >
+
                             Register
+
                         </a>
 
                     </li>
+
 
                 {% endif %}
 
@@ -582,13 +611,18 @@
     <div class="container text-center">
 
         <h1>
+
             <i class="bi bi-robot me-2"></i>
+
             Fruit Detection System
+
         </h1>
 
         <p>
+
             Enter the fruit characteristics below and let our
             machine learning model predict the fruit type.
+
         </p>
 
     </div>
@@ -636,6 +670,9 @@
 
             <div class="prediction-card">
 
+
+                <!-- CARD HEADER -->
+
                 <div class="card-header-custom">
 
                     <h3>
@@ -647,11 +684,16 @@
                     </h3>
 
                     <p>
+
                         Enter the required values to make a prediction.
+
                     </p>
 
                 </div>
 
+
+
+                <!-- CARD BODY -->
 
                 <div class="card-body-custom">
 
@@ -678,7 +720,11 @@
                                 Fruit Image
 
                                 {% if form.fruit_image.field.required %}
-                                    <span class="required-star">*</span>
+
+                                    <span class="required-star">
+                                        *
+                                    </span>
+
                                 {% endif %}
 
                             </label>
@@ -693,7 +739,9 @@
                                 </div>
 
                                 <p class="mb-3 fw-semibold">
+
                                     Upload a fruit image
+
                                 </p>
 
                                 {{ form.fruit_image }}
@@ -734,25 +782,36 @@
                                     Fruit Size
 
                                     {% if form.size.field.required %}
-                                        <span class="required-star">*</span>
+
+                                        <span class="required-star">
+                                            *
+                                        </span>
+
                                     {% endif %}
 
                                 </label>
 
+
                                 {{ form.size }}
+
 
                                 {% if form.size.help_text %}
 
                                     <div class="field-help">
+
                                         {{ form.size.help_text }}
+
                                     </div>
 
                                 {% endif %}
 
+
                                 {% if form.size.errors %}
 
                                     <div class="error-text">
+
                                         {{ form.size.errors }}
+
                                     </div>
 
                                 {% endif %}
@@ -773,25 +832,36 @@
                                     Fruit Weight
 
                                     {% if form.weight.field.required %}
-                                        <span class="required-star">*</span>
+
+                                        <span class="required-star">
+                                            *
+                                        </span>
+
                                     {% endif %}
 
                                 </label>
 
+
                                 {{ form.weight }}
+
 
                                 {% if form.weight.help_text %}
 
                                     <div class="field-help">
+
                                         {{ form.weight.help_text }}
+
                                     </div>
 
                                 {% endif %}
 
+
                                 {% if form.weight.errors %}
 
                                     <div class="error-text">
+
                                         {{ form.weight.errors }}
+
                                     </div>
 
                                 {% endif %}
@@ -822,25 +892,36 @@
                                     Fruit Width
 
                                     {% if form.width.field.required %}
-                                        <span class="required-star">*</span>
+
+                                        <span class="required-star">
+                                            *
+                                        </span>
+
                                     {% endif %}
 
                                 </label>
 
+
                                 {{ form.width }}
+
 
                                 {% if form.width.help_text %}
 
                                     <div class="field-help">
+
                                         {{ form.width.help_text }}
+
                                     </div>
 
                                 {% endif %}
 
+
                                 {% if form.width.errors %}
 
                                     <div class="error-text">
+
                                         {{ form.width.errors }}
+
                                     </div>
 
                                 {% endif %}
@@ -861,25 +942,36 @@
                                     Fruit Height
 
                                     {% if form.height.field.required %}
-                                        <span class="required-star">*</span>
+
+                                        <span class="required-star">
+                                            *
+                                        </span>
+
                                     {% endif %}
 
                                 </label>
 
+
                                 {{ form.height }}
+
 
                                 {% if form.height.help_text %}
 
                                     <div class="field-help">
+
                                         {{ form.height.help_text }}
+
                                     </div>
 
                                 {% endif %}
 
+
                                 {% if form.height.errors %}
 
                                     <div class="error-text">
+
                                         {{ form.height.errors }}
+
                                     </div>
 
                                 {% endif %}
@@ -910,25 +1002,36 @@
                                     Fruit Color
 
                                     {% if form.color.field.required %}
-                                        <span class="required-star">*</span>
+
+                                        <span class="required-star">
+                                            *
+                                        </span>
+
                                     {% endif %}
 
                                 </label>
 
+
                                 {{ form.color }}
+
 
                                 {% if form.color.help_text %}
 
                                     <div class="field-help">
+
                                         {{ form.color.help_text }}
+
                                     </div>
 
                                 {% endif %}
 
+
                                 {% if form.color.errors %}
 
                                     <div class="error-text">
+
                                         {{ form.color.errors }}
+
                                     </div>
 
                                 {% endif %}
@@ -949,25 +1052,36 @@
                                     Fruit Texture
 
                                     {% if form.texture.field.required %}
-                                        <span class="required-star">*</span>
+
+                                        <span class="required-star">
+                                            *
+                                        </span>
+
                                     {% endif %}
 
                                 </label>
 
+
                                 {{ form.texture }}
+
 
                                 {% if form.texture.help_text %}
 
                                     <div class="field-help">
+
                                         {{ form.texture.help_text }}
+
                                     </div>
 
                                 {% endif %}
 
+
                                 {% if form.texture.errors %}
 
                                     <div class="error-text">
+
                                         {{ form.texture.errors }}
+
                                     </div>
 
                                 {% endif %}
@@ -998,25 +1112,36 @@
                                     Sweetness
 
                                     {% if form.sweetness.field.required %}
-                                        <span class="required-star">*</span>
+
+                                        <span class="required-star">
+                                            *
+                                        </span>
+
                                     {% endif %}
 
                                 </label>
 
+
                                 {{ form.sweetness }}
+
 
                                 {% if form.sweetness.help_text %}
 
                                     <div class="field-help">
+
                                         {{ form.sweetness.help_text }}
+
                                     </div>
 
                                 {% endif %}
 
+
                                 {% if form.sweetness.errors %}
 
                                     <div class="error-text">
+
                                         {{ form.sweetness.errors }}
+
                                     </div>
 
                                 {% endif %}
@@ -1037,25 +1162,36 @@
                                     Acidity
 
                                     {% if form.acidity.field.required %}
-                                        <span class="required-star">*</span>
+
+                                        <span class="required-star">
+                                            *
+                                        </span>
+
                                     {% endif %}
 
                                 </label>
 
+
                                 {{ form.acidity }}
+
 
                                 {% if form.acidity.help_text %}
 
                                     <div class="field-help">
+
                                         {{ form.acidity.help_text }}
+
                                     </div>
 
                                 {% endif %}
 
+
                                 {% if form.acidity.errors %}
 
                                     <div class="error-text">
+
                                         {{ form.acidity.errors }}
+
                                     </div>
 
                                 {% endif %}
@@ -1081,25 +1217,36 @@
                                 Ripeness
 
                                 {% if form.ripeness.field.required %}
-                                    <span class="required-star">*</span>
+
+                                    <span class="required-star">
+                                        *
+                                    </span>
+
                                 {% endif %}
 
                             </label>
 
+
                             {{ form.ripeness }}
+
 
                             {% if form.ripeness.help_text %}
 
                                 <div class="field-help">
+
                                     {{ form.ripeness.help_text }}
+
                                 </div>
 
                             {% endif %}
 
+
                             {% if form.ripeness.errors %}
 
                                 <div class="error-text">
+
                                     {{ form.ripeness.errors }}
+
                                 </div>
 
                             {% endif %}
@@ -1164,8 +1311,11 @@
 
             {% if prediction %}
 
+
                 <div class="result-card">
 
+
+                    <!-- RESULT HEADER -->
 
                     <div class="result-header">
 
@@ -1180,8 +1330,13 @@
                     </div>
 
 
+
+                    <!-- RESULT BODY -->
+
                     <div class="result-body">
 
+
+                        <!-- IMAGE -->
 
                         {% if image_url %}
 
@@ -1199,10 +1354,14 @@
 
 
 
+                        <!-- PREDICTED FRUIT -->
+
                         <div class="text-center mb-4">
 
                             <div class="text-muted mb-2">
+
                                 Predicted Fruit
+
                             </div>
 
                             <div class="prediction-name">
@@ -1215,24 +1374,35 @@
 
 
 
+                        <!-- CONFIDENCE -->
+
                         {% if confidence is not None %}
 
                             <div class="mb-4">
+
 
                                 <div
                                     class="d-flex justify-content-between align-items-center mb-2"
                                 >
 
                                     <span class="fw-semibold">
+
                                         Confidence
+
                                     </span>
 
                                     <span class="confidence-value">
+
                                         {{ confidence }}%
+
                                     </span>
 
                                 </div>
 
+
+                                <!-- IMPORTANT:
+                                     No Django variable inside style=""
+                                -->
 
                                 <div
                                     class="progress confidence-bar"
@@ -1243,8 +1413,9 @@
                                 >
 
                                     <div
-                                        class="progress-bar bg-success"
-                                        style="width: {{ confidence }}%"
+                                        id="confidenceProgress"
+                                        class="progress-bar bg-success confidence-progress"
+                                        data-confidence="{{ confidence|default:'0' }}"
                                     ></div>
 
                                 </div>
@@ -1254,6 +1425,8 @@
                         {% endif %}
 
 
+
+                        <!-- SUCCESS MESSAGE -->
 
                         <div class="alert alert-success mb-0">
 
@@ -1272,11 +1445,13 @@
 
             {% else %}
 
+
                 <!-- =====================================
                      EMPTY RESULT
                 ====================================== -->
 
                 <div class="info-box">
+
 
                     <div class="info-icon">
 
@@ -1284,18 +1459,26 @@
 
                     </div>
 
+
                     <h5>
+
                         How it works
+
                     </h5>
 
+
                     <p class="mb-3">
+
                         Enter the characteristics of the fruit
                         and submit the form.
+
                     </p>
 
 
                     <hr>
 
+
+                    <!-- STEP 1 -->
 
                     <div class="d-flex mb-3">
 
@@ -1307,16 +1490,23 @@
 
                         <div>
 
-                            <strong>Enter characteristics</strong>
+                            <strong>
+                                Enter characteristics
+                            </strong>
 
                             <div class="text-muted small">
-                                Provide the fruit measurements and properties.
+
+                                Provide the fruit measurements
+                                and properties.
+
                             </div>
 
                         </div>
 
                     </div>
 
+
+                    <!-- STEP 2 -->
 
                     <div class="d-flex mb-3">
 
@@ -1328,16 +1518,22 @@
 
                         <div>
 
-                            <strong>Submit prediction</strong>
+                            <strong>
+                                Submit prediction
+                            </strong>
 
                             <div class="text-muted small">
+
                                 Click the Predict Fruit button.
+
                             </div>
 
                         </div>
 
                     </div>
 
+
+                    <!-- STEP 3 -->
 
                     <div class="d-flex">
 
@@ -1349,16 +1545,21 @@
 
                         <div>
 
-                            <strong>View result</strong>
+                            <strong>
+                                View result
+                            </strong>
 
                             <div class="text-muted small">
+
                                 The predicted fruit and confidence
                                 will appear here.
+
                             </div>
 
                         </div>
 
                     </div>
+
 
                 </div>
 
@@ -1381,6 +1582,8 @@
         <div class="row g-4">
 
 
+            <!-- PHYSICAL FEATURES -->
+
             <div class="col-md-4">
 
                 <div class="info-box">
@@ -1392,18 +1595,25 @@
                     </div>
 
                     <h5>
+
                         Physical Features
+
                     </h5>
 
                     <p>
+
                         Size, weight, width and height are used
                         as important fruit characteristics.
+
                     </p>
 
                 </div>
 
             </div>
 
+
+
+            <!-- FRUIT PROPERTIES -->
 
             <div class="col-md-4">
 
@@ -1416,18 +1626,25 @@
                     </div>
 
                     <h5>
+
                         Fruit Properties
+
                     </h5>
 
                     <p>
+
                         Color, texture, sweetness, acidity and
                         ripeness help describe the fruit.
+
                     </p>
 
                 </div>
 
             </div>
 
+
+
+            <!-- MACHINE LEARNING -->
 
             <div class="col-md-4">
 
@@ -1440,13 +1657,17 @@
                     </div>
 
                     <h5>
+
                         Machine Learning
+
                     </h5>
 
                     <p>
+
                         The trained machine learning model uses
                         the submitted characteristics to generate
                         a prediction.
+
                     </p>
 
                 </div>
@@ -1503,7 +1724,9 @@
             <div class="col-md-3">
 
                 <div class="footer-title">
+
                     Quick Links
+
                 </div>
 
 
@@ -1533,6 +1756,7 @@
 
                 {% if user.is_authenticated %}
 
+
                     <a
                         href="{% url 'profile' %}"
                         class="footer-link"
@@ -1544,7 +1768,9 @@
 
                     </a>
 
+
                 {% else %}
+
 
                     <a
                         href="{% url 'login' %}"
@@ -1556,6 +1782,7 @@
                         Login
 
                     </a>
+
 
                 {% endif %}
 
@@ -1569,22 +1796,29 @@
             <div class="col-md-4">
 
                 <div class="footer-title">
+
                     Account
+
                 </div>
 
 
                 {% if user.is_authenticated %}
+
 
                     <div class="footer-text">
 
                         <i class="bi bi-person-circle me-2"></i>
 
                         Logged in as:
+
                         <strong class="text-white">
+
                             {{ user.username }}
+
                         </strong>
 
                     </div>
+
 
                     <div class="mt-2">
 
@@ -1601,7 +1835,9 @@
 
                     </div>
 
+
                 {% else %}
+
 
                     <a
                         href="{% url 'login' %}"
@@ -1626,7 +1862,9 @@
 
                     </a>
 
+
                 {% endif %}
+
 
             </div>
 
@@ -1649,7 +1887,10 @@
             <div class="mt-1">
 
                 <small>
-                    Fruit Detection Project | Machine Learning
+
+                    Fruit Detection Project |
+                    Machine Learning
+
                 </small>
 
             </div>
@@ -1669,6 +1910,54 @@
 
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+
+<!-- =====================================================
+     CONFIDENCE BAR JAVASCRIPT
+===================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const confidenceProgress =
+        document.getElementById("confidenceProgress");
+
+    if (confidenceProgress) {
+
+        let confidence = parseFloat(
+            confidenceProgress.getAttribute("data-confidence")
+        );
+
+        if (isNaN(confidence)) {
+            confidence = 0;
+        }
+
+        /* Keep value between 0 and 100 */
+
+        confidence = Math.max(
+            0,
+            Math.min(100, confidence)
+        );
+
+        /* Set progress bar width */
+
+        confidenceProgress.style.width =
+            confidence + "%";
+
+        /* Accessibility */
+
+        confidenceProgress.setAttribute(
+            "aria-valuenow",
+            confidence
+        );
+
+    }
+
+});
+
 </script>
 
 
