@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect
 
 def register(request):
 
+    # If already logged in, go to home
     if request.user.is_authenticated:
         return redirect("home")
 
@@ -21,6 +22,7 @@ def register(request):
 
             user = form.save()
 
+            # Automatically login after registration
             login(request, user)
 
             return redirect("home")
@@ -32,7 +34,9 @@ def register(request):
     return render(
         request,
         "accounts/register.html",
-        {"form": form}
+        {
+            "form": form
+        }
     )
 
 
@@ -42,35 +46,52 @@ def register(request):
 
 def user_login(request):
 
+    # -----------------------------------------------------
+    # Already logged in
+    # -----------------------------------------------------
+
     if request.user.is_authenticated:
 
+        # Staff / Superuser → Django Admin
         if request.user.is_staff:
             return redirect("/admin/")
 
+        # Normal user → Home
         return redirect("home")
 
     error = None
 
+    # -----------------------------------------------------
+    # Login form submitted
+    # -----------------------------------------------------
+
     if request.method == "POST":
 
-        username = request.POST.get("username")
-        password = request.POST.get("password")
+        username = request.POST.get("username", "").strip()
+        password = request.POST.get("password", "")
 
+        # Check username and password
         user = authenticate(
             request,
             username=username,
             password=password
         )
 
+        # -------------------------------------------------
+        # Valid login
+        # -------------------------------------------------
+
         if user is not None:
 
+            # Login the user
             login(request, user)
 
             # ---------------------------------------------
-            # ADMIN / SUPERUSER
+            # ADMIN / STAFF USER
             # ---------------------------------------------
 
             if user.is_staff:
+
                 return redirect("/admin/")
 
             # ---------------------------------------------
@@ -79,13 +100,34 @@ def user_login(request):
 
             return redirect("home")
 
+        # -------------------------------------------------
+        # Invalid login
+        # -------------------------------------------------
+
         error = "Invalid username or password."
+
+    # -----------------------------------------------------
+    # Display login page
+    # -----------------------------------------------------
 
     return render(
         request,
         "accounts/login.html",
-        {"error": error}
+        {
+            "error": error
+        }
     )
+
+
+# =========================================================
+# LOGOUT
+# =========================================================
+
+def user_logout(request):
+
+    logout(request)
+
+    return redirect("home")
 
 
 # =========================================================

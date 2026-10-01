@@ -4,8 +4,6 @@ from django.urls import path
 from prediction import views
 from accounts import views as account_views
 
-from django.contrib.auth import views as auth_views
-
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -61,13 +59,13 @@ urlpatterns = [
 
     path(
         "logout/",
-        auth_views.LogoutView.as_view(),
+        account_views.user_logout,
         name="logout"
     ),
 
 
     # =====================================================
-    # USER PROFILE / HISTORY
+    # USER PROFILE / PREDICTION HISTORY
     # =====================================================
 
     path(
